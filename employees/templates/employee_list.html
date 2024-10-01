@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-center mb-4">Employee List</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Date of Joining</th>
+            {% comment %} {% if user.is_authenticated %} {% endcomment %}
+            {% if user.is_authenticated and user.is_superuser %}
+                <th>Actions</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in employees %}
+        <tr>
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.phone }}</td>
+            <td>{{ employee.address }}</td>
+            <td>{{ employee.date_of_joining }}</td>
+            <td>
+                {% if user.is_authenticated and user.is_superuser %}
+                    <a href="{% url 'edit_employee' employee.id %}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{% url 'delete_employee' employee.id %}" class="btn btn-danger btn-sm">Delete</a>
+                {% endif %}
+
+                {% comment %} <a href="{% url 'edit_employee' employee.id %}" class="btn btn-primary btn-sm">Edit</a>
+                <a href="{% url 'delete_employee' employee.id %}" class="btn btn-danger btn-sm">Delete</a> {% endcomment %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

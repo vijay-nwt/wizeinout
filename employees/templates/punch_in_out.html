@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-center mb-4">Punch In / Punch Out</h2>
+<div class="text-center mb-4">
+    <form method="POST" action="{% url 'punch_in' %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Punch In</button>
+    </form>
+    <form method="POST" action="{% url 'punch_out' %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Punch Out</button>
+    </form>
+</div>
+{% if message %}
+    <div class="alert alert-info text-center">{{ message }}</div>
+{% endif %}
+{% endblock %}
