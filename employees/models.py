@@ -22,4 +22,6 @@ class PunchRecord(models.Model):
     punch_out_time = models.DateTimeField(null=True, blank=True)
     date = models.DateField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.employee.name} - {self.date}"
 

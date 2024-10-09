@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="text-center">My Profile</h1>
+    
+    {% if employee %}
+        <!-- Employee Details Section -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h2>Employee Details</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Name:</strong> {{ employee.name }}</p>
+                        <p><strong>Email:</strong> {{ employee.email }}</p>
+                        <p><strong>Phone:</strong> {{ employee.phone }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Address:</strong> {{ employee.address }}</p>
+                        <p><strong>Date of Joining:</strong> {{ employee.date_of_joining }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- leave_request_list.html -->
+        <div class="container mt-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h2>My Leave Requests</h2>
+                </div>
+                <div class="card-body">
+                    {% if leave_requests %}
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Reason</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for leave in leave_requests %}
+                                        <tr>
+                                            <td>{{ leave.start_date }}</td>
+                                            <td>{{ leave.end_date }}</td>
+                                            <td>{{ leave.reason }}</td>
+                                            <td>
+                                                {% if leave.status == 'Pending' %}
+                                                    <span >{{ leave.status }}</span>
+                                                {% elif leave.status == 'Approved' %}
+                                                    <span >{{ leave.status }}</span>
+                                                {% else %}
+                                                    <span >{{ leave.status }}</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="alert alert-warning">No leave requests found.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <br>
+        <!-- Punch In/Out Details Section -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h2>Punch In/Out Details</h2>
+            </div>
+            <div class="card-body">
+                {% if punch_records %}
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Punch In Time</th>
+                                    <th>Punch Out Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for record in punch_records %}
+                                    <tr>
+                                        <td>{{ record.date }}</td>
+                                        <td>{{ record.punch_in_time|date:"Y-m-d H:i:s" }}</td>
+                                        <td>{{ record.punch_out_time|date:"Y-m-d H:i:s" }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="alert alert-warning">No punch records found.</p>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-danger text-center">
+            <p>No employee details found.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}

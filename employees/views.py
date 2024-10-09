@@ -11,6 +11,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+def homepage(request):
+    return render(request,'home.html')
+
+@login_required
 def employee_list(request):
     employees = Employee.objects.all()
     return render(request, 'employee_list.html', {'employees': employees})
@@ -249,3 +253,28 @@ def logout_view(request):
     logout(request)
     messages.success(request, "You have been logged out successfully.")
     return redirect('login')  # Redirect to the login page after logout
+
+
+from leaves.models import LeaveRequest
+def myprofile(request):
+    # Get the logged-in user
+    user = request.user
+    leave_requests = LeaveRequest.objects.filter(employee=request.user)
+
+    # Fetch the corresponding Employee object
+    try:
+        employee = Employee.objects.get(user=user)
+    except Employee.DoesNotExist:
+        employee = None
+
+    # If the employee exists, get the punch records
+    punch_records = PunchRecord.objects.filter(employee=employee) if employee else []
+
+    # Pass employee and punch records to the template
+    context = {
+        'employee': employee,
+        'punch_records': punch_records,
+        'leave_requests': leave_requests,
+    }
+
+    return render(request, 'profile.html', context)

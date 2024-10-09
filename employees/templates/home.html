@@ -1,0 +1,116 @@
+
+    {% extends "base.html" %}
+
+    <!-- Hero Section -->
+     {% block content %}
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1>Welcome to NetworkWize</h1>
+            <p class="lead">Empowering Networks with Seamless Connectivity and Cutting-edge Solutions</p>
+            <a href="#" class="btn btn-primary btn-lg">Learn More</a>
+            <a href="#" class="btn btn-outline-light btn-lg">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Our Services</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card service-card p-3 shadow-sm">
+                        <i class="bi bi-code-slash fs-1"></i>
+                        <h4 class="card-title mt-3">Software Development</h4>
+                        <p class="card-text">Custom software solutions tailored to your business needs.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card p-3 shadow-sm">
+                        <i class="bi bi-diagram-3 fs-1"></i>
+                        <h4 class="card-title mt-3">Network Management</h4>
+                        <p class="card-text">Ensuring reliable and secure network infrastructure.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card p-3 shadow-sm">
+                        <i class="bi bi-headset fs-1"></i>
+                        <h4 class="card-title mt-3">24/7 IT Support</h4>
+                        <p class="card-text">Round-the-clock support to keep your business running smoothly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    {% comment %} <section id="team" class="py-5 bg-light">
+        <div class="container text-center">
+            <h2 class="mb-4">Meet Our Team</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="https://source.unsplash.com/150x150/?man,portrait" alt="Team Member" class="img-fluid mb-2">
+                    <h5>John Doe</h5>
+                    <p>Chief Technology Officer</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="https://source.unsplash.com/150x150/?woman,portrait" alt="Team Member" class="img-fluid mb-2">
+                    <h5>Jane Smith</h5>
+                    <p>Project Manager</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="https://source.unsplash.com/150x150/?man,portrait,2" alt="Team Member" class="img-fluid mb-2">
+                    <h5>Mike Johnson</h5>
+                    <p>Lead Developer</p>
+                </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">What Our Clients Say</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card testimonial-card p-3">
+                        <p>"NetworkWize transformed our IT infrastructure and provided exceptional support."</p>
+                        <h5>– Raj</h5>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card testimonial-card p-3">
+                        <p>"The best IT consultancy firm we've worked with. Highly recommend their services!"</p>
+                        <h5>– Abhishek</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Get in Touch</h2>
+            <form>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    
+
+    {% endblock content %}
+

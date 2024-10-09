@@ -1,0 +1,35 @@
+<!-- leave_request_list.html -->
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container mt-5">
+    <h2>My Leave Requests</h2>
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Reason</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for leave in leave_requests %}
+          <tr>
+            <td>{{ leave.start_date }}</td>
+            <td>{{ leave.end_date }}</td>
+            <td>{{ leave.reason }}</td>
+            <td>
+              {% if leave.status == 'Pending' %}
+                <span >{{ leave.status }}</span>
+              {% elif leave.status == 'Approved' %}
+                <span >{{ leave.status }}</span>
+              {% else %}
+                <span >{{ leave.status }}</span>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

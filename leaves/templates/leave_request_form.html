@@ -1,0 +1,58 @@
+<!-- leave_request_form.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        <h2>Submit Leave Request</h2>
+      </div>
+      <div class="card-body">
+        <form method="post" class="needs-validation" novalidate>
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="start_date">Start Date</label>
+            <input type="date" id="start_date" name="start_date" class="form-control" required>
+            <div class="invalid-feedback">
+              Please provide a valid start date.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="end_date">End Date</label>
+            <input type="date" id="end_date" name="end_date" class="form-control" required>
+            <div class="invalid-feedback">
+              Please provide a valid end date.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="reason">Reason</label>
+            <textarea id="reason" name="reason" class="form-control" rows="3" placeholder="Reason for leave" required></textarea>
+            <div class="invalid-feedback">
+              Please provide a reason for your leave.
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Add this script at the end of leave_request_form.html -->
+<script>
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      var forms = document.getElementsByClassName('needs-validation');
+      Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>
+
+{% endblock %}
