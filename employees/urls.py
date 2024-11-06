@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import views,send_mail
 
 urlpatterns = [
     path('',views.homepage,name='home'),
@@ -11,6 +11,9 @@ urlpatterns = [
     path('punch_in/', views.punch_in, name='punch_in'),  # Punch In logic
     path('punch_out/', views.punch_out, name='punch_out'),  # Punch Out logic
     path('my-profile',views.myprofile,name='myprofile'),
+
+    path('send-email',send_mail.send_test_email,name='send_email'),
+    path('signup-email',send_mail.signup_email,name='signup_email'),
 
      # Authentication URLs
     path('signup/', views.signup, name='signup'),  # Sign-up page

@@ -7,11 +7,15 @@
         <div class="container">
             <h1>Welcome to NetworkWize</h1>
             <p class="lead">Empowering Networks with Seamless Connectivity and Cutting-edge Solutions</p>
-            <a href="#" class="btn btn-primary btn-lg">Learn More</a>
-            <a href="#" class="btn btn-outline-light btn-lg">Get Started</a>
+            <a href="{% url "login" %}" class="btn btn-success btn-lg">Login</a>
+            <a href="{% url "signup" %}" class="btn btn-danger btn-lg">Sign Up</a>
+            
+            <a class="btn btn-dark btn-lg" href="{% url "send_email" %}">send email</a>
+    
+            <a class="btn btn-dark btn-lg" href="{% url "signup_email" %}">signup email</a>
+
         </div>
     </section>
-
     <!-- Services Section -->
     <section id="services" class="py-5">
         <div class="container text-center">

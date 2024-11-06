@@ -129,3 +129,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # settings.py
 LOGIN_URL = '/login/'
+
+
+# settings.py
+from django.conf import settings
+
+POSTMARK_API_KEY = '425b99bf-5016-4395-912d-c2936c240a2a'  # Get this from your Postmark account
+POSTMARK_SENDER_EMAIL = 'developer@networkwize.com'  # The verified sender email in Postmark
+
+EMAIL_BACKEND = 'postmark.django_backend.EmailBackend'
+
+
+

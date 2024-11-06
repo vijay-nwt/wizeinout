@@ -10,6 +10,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .send_mail import send_test_email,signup_email
 
 def homepage(request):
     return render(request,'home.html')
@@ -55,23 +56,8 @@ def delete_employee(request, employee_id):
 def punch_in_out(request):
     return render(request, 'punch_in_out.html')
 
-# @login_required
-# def punch_in(request):
-#     employee = request.user.employee
-#     today = datetime.date.today()
-#     punch_record, created = PunchRecord.objects.get_or_create(employee=employee, date=today)
-#     if not punch_record.punch_in_time:
-#         punch_record.punch_in_time = datetime.datetime.now()
-#         punch_record.save()
-#         message = "Punched In successfully!" 
-#     else:
-#         message = f"Already Punched In for today at {punch_record.punch_in_time}."
-#     return render(request, 'punch_in_out.html', {'message': message})
 
-from django.shortcuts import redirect
-from django.contrib import messages
-import datetime
-from .models import PunchRecord
+
 
 @login_required
 def punch_in(request):
@@ -107,48 +93,6 @@ def punch_in(request):
     return render(request, 'punch_in_out.html', {'message': message})
 
 
-# @login_required
-# def punch_in(request):
-#     try:
-#         # Attempt to get the employee associated with the logged-in user
-#         employee = request.user.employee  # Adjust this line if your relationship is different
-#     except Employee.DoesNotExist:
-#         messages.error(request, "You need to create an employee record before punching in.")
-#         return redirect('add_employee')  # Redirect to add employee page
-
-#     # Handle the punch-in logic if employee exists
-#     if request.method == 'POST':
-#         # Create or update the punch record
-#         punch_record, created = PunchRecord.objects.get_or_create(
-#             employee=employee,
-#             date=datetime.date.today(),
-#             defaults={'punch_in_time': timezone.now()}
-#         )
-#         if not created:
-#             # Update the existing record's punch_in_time if necessary
-#             punch_record.punch_in_time = timezone.now()
-#             punch_record.save()
-        
-#         messages.success(request, "Punched in successfully.")
-#         return redirect('punch_in_out')  # Redirect to punch in/out page
-
-#     return render(request, 'punch_in.html')  # Render punch-in page
-
-# @login_required
-# def punch_out(request):
-#     employee = request.user.employee
-#     today = datetime.date.today()
-#     try:
-#         punch_record = PunchRecord.objects.get(employee=employee, date=today)
-#         if punch_record.punch_in_time and not punch_record.punch_out_time:
-#             punch_record.punch_out_time = datetime.datetime.now()
-#             punch_record.save()
-#             message = "Punched Out successfully!"
-#         else:
-#             message = f"Already Punched Out for today at {punch_record.punch_out_time}"
-#     except PunchRecord.DoesNotExist:
-#         message = "No Punch In record found for today."
-#     return render(request, 'punch_in_out.html', {'message': message})
 
 @login_required
 def punch_out(request):
@@ -189,6 +133,7 @@ def signup(request):
             user = form.save()
             login(request, user)  # Log in the user after successful sign-up
             messages.success(request, 'Account created successfully!')
+            signup_email(request)
             return redirect('login')  
         else:
             print('finding error',form.errors)
@@ -196,28 +141,6 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
-
-
-# Login View
-# def login_view(request):
-#     if request.method == 'POST':
-#         form = AuthenticationForm(request, data=request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data.get('username')
-#             password = form.cleaned_data.get('password')
-#             user = authenticate(request, username=username, password=password)
-#             if user is not None:
-#                 login(request, user)
-#                 messages.success(request, f"Welcome back, {username}!")
-#                 return redirect('punch_in_out') 
-#             else:
-#                 messages.error(request, "Invalid username or password.")
-#         else:
-#             messages.error(request, "Invalid username or password.")
-#     else:
-#         form = AuthenticationForm()
-#     return render(request, 'login.html', {'form': form})
-
 
 
 def login_view(request):
@@ -230,6 +153,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, f"Welcome back, {username}!")
+                send_test_email(request)
                 
                 # Check if the user has an associated Employee record
                 if Employee.objects.filter(user=user).exists():
